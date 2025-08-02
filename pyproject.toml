@@ -1,13 +1,20 @@
 [project]
 name = "n-grams-wikipedia"
 version = "0.1.0"
-description = ""
+description = "Brook's N-gram model trained on wikipedia dumps"
 readme = "README.md"
-requires-python = ">=3.11"
-packages = [{ include = "n-grams-wikipedia", from = "src" }]
+requires-python = ">=3.13"
+packages = [{ include = "n_grams_wikipedia", from = "src" }]
+authors = [{name = "bhq12"}]
+license = "MIT"
 dependencies = [
 ]
 
+[tool.poetry.dependencies]
+python = ">=3.13"
+
+[tool.poetry.scripts]
+naive_count = "n_grams_wikipedia.naive_count:main"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]

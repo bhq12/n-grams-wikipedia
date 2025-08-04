@@ -73,8 +73,8 @@ def iterate_corpus(trigrams, bigrams, total_words):
                 log_progress(trigrams, bigrams, total_words)
                 total_words += 1
 
-                if total_words % 20000000 == 0:
-                    # We strip insignificant n-grams (occurring only once every 20 million words)
+                if total_words % 5000000 == 0:
+                    # We strip insignificant n-grams (occurring only once every 5 million words)
                     # as they eat too much RAM for their value and their probabilities can
                     # be estimated after-the-fact
                     bigrams = strip_dictionary(bigrams)

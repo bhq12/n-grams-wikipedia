@@ -1,0 +1,2 @@
+wikipedia_trigram.db filter=lfs diff=lfs merge=lfs -text
+wikipedia_bigram.db filter=lfs diff=lfs merge=lfs -text

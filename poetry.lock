@@ -91,6 +91,21 @@ pygments = ">=2.7.2"
 dev = ["argcomplete", "attrs (>=19.2)", "hypothesis (>=3.56)", "mock", "requests", "setuptools", "xmlschema"]
 
 [[package]]
+name = "survey"
+version = "5.4.2"
+description = "A simple library for creating beautiful interactive prompts."
+optional = false
+python-versions = ">=3.7"
+groups = ["main"]
+files = [
+    {file = "survey-5.4.2-py3-none-any.whl", hash = "sha256:49473702e82542ea14c9e983db234935a76add4cd5d5437e72b5ea9a5d214c93"},
+    {file = "survey-5.4.2.tar.gz", hash = "sha256:e2f9e3b526f0db2fe8f9f4960e5fc2a93119925d2350b18e2d445d6740692af6"},
+]
+
+[package.extras]
+docs = ["sphinx", "sphinx-autodoc-typehints (<1.25.3)", "sphinx-paramlinks", "sphinx-rtd-theme"]
+
+[[package]]
 name = "tqdm"
 version = "4.67.1"
 description = "Fast, Extensible Progress Meter"
@@ -115,4 +130,4 @@ telegram = ["requests"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.13"
-content-hash = "86a8870f73a67818bfc952f16bcd64324e35ab750cb0c45b4a5805d24210750e"
+content-hash = "162d15e7c9da6a21a0a378b270a8c07f0d6150bfb6ccef49d75802358c51141b"

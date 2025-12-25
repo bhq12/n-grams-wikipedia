@@ -1,14 +1,7 @@
-from collections import defaultdict
-import copy
-from datetime import timedelta
+import os
 import json
-import re
-import sys
-import time
-from functools import lru_cache
+import sqlite3
 from tqdm import tqdm
-
-START_TIME = time.perf_counter()
 
 def build_model_dictionary(n_gram_count_file: str) -> dict:
     n_gram_model = {}
@@ -25,6 +18,28 @@ def build_model_dictionary(n_gram_count_file: str) -> dict:
                 n_gram_model[n_gram[0:split_index]] = (n_gram[split_index+1:], count) 
     return n_gram_model
 
+def build_model_files(model_name: str, model_counts: dict):
+    if not os.path.exists('./models'):
+        os.mkdir('./models')
+    if not os.path.exists('./models/n_gram'):
+        os.mkdir('./models/n_gram')
+    if not os.path.exists(f'./models/n_gram/{model_name}'):
+        os.mkdir(f'./models/n_gram/{model_name}')
+
+    connection = sqlite3.connect(f'./models/n_gram/{model_name}.db')
+    cursor = connection.cursor()
+    cursor.execute('CREATE TABLE IF NOT EXISTS n_grams(gram, prediction, UNIQUE(gram))')
+
+    print('writing model to disk')
+    for n_gram, prediction in tqdm(model_counts.items()):
+        print(f"INSERT OR IGNORE INTO n_grams(gram, prediction) VALUES ('{n_gram}', '{prediction[0]}')")
+        cursor.execute(f'''INSERT OR IGNORE INTO n_grams(gram, prediction) VALUES (
+                       '{n_gram.replace("'", "''")}', '{prediction[0].replace("'", "''")}')''')
+    print('model created')
+    connection.commit()
+
+
+
 def iterate_bigrams():
     bigram_model = {}
 
@@ -35,6 +50,10 @@ def iterate_bigrams():
     print(json.dumps(trigram_model['United States'], indent=2))
     print(json.dumps(trigram_model['Barack Hussein'], indent=2))
     print(json.dumps(trigram_model['States of'], indent=2))
+
+    build_model_files(f'wikipedia_bigram', bigram_model)
+    build_model_files(f'wikipedia_trigram', trigram_model)
+
 
 def main():
     iterate_bigrams()
